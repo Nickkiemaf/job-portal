@@ -21,3 +21,19 @@ export interface TokenGeneratorType {
   user_id: number,
   role: string
 }
+
+export interface JobType {
+  employer_id: number,
+  company_id?: number,
+  title?: string,
+  description?: string,
+  location?: string,
+  salary_min: number,
+  salary_max?: number,
+  skills_required?: string,
+  experience_level?: string,
+  employment_type?: string,
+  status?: string,
+  view_count?: number,
+  job_id?: number
+}
