@@ -45,3 +45,10 @@ export interface ApplicationType {
   resume_url?: string,
   status?: string
 }
+
+export interface CompanyType {
+  user_id?: number,
+  logo?: string,
+  address?: string,
+  company_size?: number
+}
