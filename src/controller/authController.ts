@@ -14,9 +14,7 @@ export class auth {
 
       //validation
 
-      if (!first_name || !last_name || !email || !password || !role ||
-        !resume || !experience || !logo || !address || !company_size
-      ) {
+      if (!first_name || !last_name || !email || !password || !role) {
         return res.status(200).json({
           message: "All fields required"
         })

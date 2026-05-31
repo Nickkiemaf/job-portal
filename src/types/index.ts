@@ -37,3 +37,11 @@ export interface JobType {
   view_count?: number,
   job_id?: number
 }
+
+export interface ApplicationType {
+  job_id?: number,
+  seeker_id?: number,
+  cover_letter?: string,
+  resume_url?: string,
+  status?: string
+}

@@ -26,11 +26,6 @@ VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
 RETURNING *
 `
 
-export const applicationQuery = `
-INSERT INTO application(job_id, seeker_id, cover_letter, resume_url, status)
-VALUES($1, $2, $3, $4, $5)
-RETURNING *
-`
 
 export const emailExist = `
 SELECT * FROM users

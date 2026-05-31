@@ -15,6 +15,7 @@ export const testDatabase = async () => {
   try {
     const query = await pool.query(`SELECT NOW()`)
     console.log("db connected ", query.rows[0])
+
   } catch (error) {
     console.log(error)
   }

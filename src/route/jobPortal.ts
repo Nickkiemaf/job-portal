@@ -1,6 +1,7 @@
-import { Router } from "express";
+import { application, Router } from "express";
 import { auth } from "../controller/authController.ts";
 import { job } from "../controller/jobController.ts";
+import { newApplication } from "../controller/applicationController.ts";
 
 const router = Router()
 
@@ -12,25 +13,11 @@ router.get("/jobs/:id", job.getSingleJob)
 router.patch("jobs/:id", job.updateJobs)
 router.get("jobs/:id/application", job.getSingleJob)
 
+//application routes
+router.post("/jobs/:id/apply", newApplication.userApplication)
+router.get("/applications/me", newApplication.allUserApplication)
+router.put("/applications/:id/status", newApplication.updateApplicationByStatus)
+
 
 export default router
 
-
-// GET
-//   / jobs
-// List all active jobs(supports query filters)
-// GET
-//   / jobs /: id
-// View a single job listing(increments view count)
-// POST
-//   / jobs
-// Create a new job listing
-// PUT
-//   / jobs /: id
-// Update an existing job listing
-// DELETE
-//   / jobs /: id
-// Delete(soft - delete) a job listing
-// GET
-//   / jobs /: id / applications
-// View all applications for a job

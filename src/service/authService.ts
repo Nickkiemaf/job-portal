@@ -22,7 +22,7 @@ export class authService {
       const hashedPassword = await bcrypt.hash(data.password, 10)
 
       //rollback
-      client.query("BEGIN")
+      await client.query("BEGIN")
 
       const userResult = await client.query(usersQuery, [
         data.first_name,
@@ -88,7 +88,7 @@ export class authService {
       const userResults = userResult.rows[0]
 
       const companyResult = await client.query(companyQuery, [
-        data.users_id,
+        userResults.id,
         data.logo,
         data.address,
         data.company_size
@@ -123,7 +123,7 @@ export class authService {
         data.email
       ])
 
-      if (emailExistences.rows.length < 0) {
+      if (emailExistences.rows.length === 0) {
         throw new Error("User not found")
       }
 
@@ -138,7 +138,7 @@ export class authService {
 
       const token = await generateToken(userData.id, userData.role)
 
-      const { password, ...datas } = userData
+      const { password_hash, ...datas } = userData
 
       return { datas, token }
 

@@ -14,10 +14,12 @@ const app: Application = express()
 const port: string | undefined = process.env.PORT
 
 app.use(express.json())
+
 app.use(authRoute)
 
 app.listen(port, () => {
   console.log(`Server is running on ${port}`)
+
   testDatabase()
   runMigration()
   emailService.sendCompanyWelcome("mikailajibolawrites@gmail.com", "Ferricool Studio")

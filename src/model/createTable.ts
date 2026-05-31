@@ -84,5 +84,7 @@ export const createTables = async () => {
 
   } catch (error) {
     console.log(error)
+  } finally {
+    client.release()
   }
 }
