@@ -27,8 +27,4 @@ router.put("/companies/:id", company.updateCompanyProfile)
 
 export default router
 
-// GET / companies /: id
-// POST / companies
-// PUT / companies /: id
-// POST / companies /: id / logo
 

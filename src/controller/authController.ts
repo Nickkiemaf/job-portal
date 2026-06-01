@@ -33,10 +33,16 @@ export class auth {
           { first_name, last_name, email, password, role, resume, experience })
       }
 
-      else {
+      else if (role == "Company") {
         result = await authService.companySignup(
           { first_name, last_name, email, password, role, logo, address, company_size }
         )
+      }
+
+      else {
+        return res.status(400).json({
+          message: "Hunting a job or finding a talent?"
+        })
       }
 
       return res.status(200).json({
