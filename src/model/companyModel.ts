@@ -1,8 +1,9 @@
 import { pool } from "../config/db.ts"
 
 export const companyActiveJobsQuery = `
-SELECT * FROM company
-WHERE status = active
+SELECT * FROM job_listings
+WHERE status = 'active'
+AND company_id = $1
 `
 
 // Update company profile

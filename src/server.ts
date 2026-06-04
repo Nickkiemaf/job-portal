@@ -11,17 +11,17 @@ dotenv.config()
 
 const app: Application = express()
 
-const port: string | undefined = process.env.PORT
+//const port: string | undefined = process.env.PORT
 
 app.use(express.json())
 
 app.use(authRoute)
 
-app.listen(port, () => {
-  console.log(`Server is running on ${port}`)
+app.listen(3000, () => {
+  console.log(`Server is running on 8080`)
 
   testDatabase()
-  runMigration()
+  //runMigration()
   emailService.sendCompanyWelcome("mikailajibolawrites@gmail.com", "Ferricool Studio")
   logger.info("Server runnung.")
 })

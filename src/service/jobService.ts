@@ -16,12 +16,12 @@ export class jobService {
       }
 
       const jobService = await client.query(jobListingQuery, [
-        data.employer_id, data.company_id,
+        data.company_id,
         data.title, data.description,
         data.location, data.salary_min,
         data.salary_max, data.skills_required,
         data.experience_level, data.employment_type,
-        data.status, data.view_count
+        data.status
       ])
 
       const newJobService = jobService.rows[0]
@@ -63,12 +63,11 @@ export class jobService {
     try {
 
       const updateJob = await client.query(updateJobsQuery, [
-        data.company_id,
         data.title, data.description,
         data.location, data.salary_min,
         data.salary_max, data.skills_required,
         data.experience_level, data.employment_type,
-        data.status, data.view_count
+        data.status, data.company_id
       ])
 
       const updatedJob = updateJob.rows[0]
@@ -79,7 +78,8 @@ export class jobService {
       console.log(error)
 
     } finally {
-    } client.release()
+      client.release()
+    }
   }
 
   static allJobApplicationsService = async (job_id: number) => {

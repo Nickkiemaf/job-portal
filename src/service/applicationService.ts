@@ -15,7 +15,7 @@ export class applicationService {
         data.seeker_id
       ])
 
-      if (preventDoubleApplication.rows.length > 1) {
+      if (preventDoubleApplication.rows.length > 0) {
         throw new Error("Only one application allowed")
       }
 

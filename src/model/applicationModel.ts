@@ -3,7 +3,7 @@ import { pool } from "../config/db.ts"
 // Submit an application to a job listing
 export const applicationQuery = `
 INSERT INTO application(job_id, seeker_id, cover_letter, resume_url)
-VALUES($1, $2, $3, $4, $5)
+VALUES($1, $2, $3, $4)
 RETURNING *
 `
 

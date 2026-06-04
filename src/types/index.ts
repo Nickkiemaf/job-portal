@@ -23,7 +23,6 @@ export interface TokenGeneratorType {
 }
 
 export interface JobType {
-  employer_id: number,
   company_id?: number,
   title?: string,
   description?: string,

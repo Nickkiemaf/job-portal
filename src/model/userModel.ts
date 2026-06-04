@@ -19,10 +19,10 @@ RETURNING *
 `
 
 export const jobListingQuery = `
-INSERT INTO job_listings (employer_id, company_id, title, description,
+INSERT INTO job_listings (company_id, title, description,
 location, salary_min, salary_max, skills_required, experience_level,
-employment_type, status, view_count)
-VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+employment_type, status)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 RETURNING *
 `
 

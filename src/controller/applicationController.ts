@@ -23,8 +23,17 @@ export class newApplication {
         data: newUserApplication
       })
 
-    } catch (error) {
-      console.log(error || "Internal Server error")
+    } catch (error: any) {
+
+      if (error === "Only one application allowed") {
+        return res.status(409).json({
+          message: "You have already applied for this job"
+        })
+      }
+
+      return res.status(500).json({
+        message: "Internal Server error"
+      })
     }
 
   }
@@ -56,7 +65,10 @@ export class newApplication {
 
     try {
 
-      const { status, job_id } = req.body
+      const { id } = req.params as { id: string }
+      const job_id = parseInt(id)
+
+      const { status } = req.body
 
       if (!job_id || !status) {
         return res.status(400).json({

@@ -7,28 +7,28 @@ export class job {
 
     try {
 
-      const { employer_id, company_id, title,
+      const { company_id, title,
         description, location, salary_min, salary_max,
         skills_required, experience_level, employment_type,
-        status, view_count
+        status
       } = req.body
 
       //validation
 
-      if (!employer_id || !company_id || !title ||
+      if (!company_id || !title ||
         !description || !location || !salary_min || !salary_max ||
         !skills_required || !experience_level || !employment_type ||
-        !status || !view_count) {
+        !status) {
         return res.status(400).json({
           message: "All fields required"
         })
       }
 
       const newJob = await jobService.createJobService({
-        employer_id, company_id, title,
+        company_id, title,
         description, location, salary_min, salary_max,
         skills_required, experience_level, employment_type,
-        status, view_count
+        status
       })
 
       return res.status(201).json({
@@ -60,24 +60,24 @@ export class job {
   static updateJobs = async (req: Request, res: Response) => {
 
     try {
-      const { employer_id, company_id, title,
+      const { title,
         description, location, salary_min, salary_max,
         skills_required, experience_level, employment_type,
-        status, view_count
+        status, company_id
       } = req.body
 
 
-      if (!employer_id) {
+      if (!company_id) {
         return res.status(400).json({
-          message: "Employer id required"
+          message: "Company id required"
         })
       }
 
       const updateJobListing = await jobService.updateJobsService({
-        employer_id, company_id, title,
+        title,
         description, location, salary_min, salary_max,
         skills_required, experience_level, employment_type,
-        status, view_count
+        status, company_id
       })
 
       return res.status(200).json({

@@ -7,14 +7,18 @@ export class company {
 
     try {
 
-      const activeJobbs = await companyService.activeJobsService()
+      const { id } = req.params as { id: string }
+
+      const company_id = parseInt(id)
+
+      const activeJobbs = await companyService.activeJobsService(company_id)
 
       return res.status(200).json({
         data: activeJobbs
       })
 
     } catch (error) {
-      console.log(error || "Internal server error")
+      console.log("Internal server error")
     }
   }
 

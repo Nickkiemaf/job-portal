@@ -7,15 +7,17 @@ import type { CompanyType } from "../types/index.ts"
 export class companyService {
 
   // View a public company profile with active jobs
-  static activeJobsService = async () => {
+  static activeJobsService = async (company_id: number) => {
 
     const client = await pool.connect()
 
     try {
 
-      const activeJobs = await client.query(companyActiveJobsQuery)
+      const activeJobs = await client.query(companyActiveJobsQuery, [
+        company_id
+      ])
 
-      const allActiveJobs = activeJobs.rows[0]
+      const allActiveJobs = activeJobs.rows
 
       return allActiveJobs
 

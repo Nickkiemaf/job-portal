@@ -1,4 +1,4 @@
-import { application, Router } from "express";
+import { Router } from "express";
 import { auth } from "../controller/authController.ts";
 import { job } from "../controller/jobController.ts";
 import { newApplication } from "../controller/applicationController.ts";
@@ -11,8 +11,8 @@ router.post("/login", auth.userLogin)
 router.post("/jobs", job.createJob) //create job - employer only
 router.get("/jobs", job.allActiveJobs) //all active jobs
 router.get("/jobs/:id", job.getSingleJob)
-router.patch("jobs/:id", job.updateJobs)
-router.get("jobs/:id/application", job.getSingleJob)
+router.patch("/jobs/:id", job.updateJobs)
+router.get("/jobs/:id/application", job.getSingleJob)
 
 //application routes
 router.post("/jobs/:id/apply", newApplication.userApplication)
