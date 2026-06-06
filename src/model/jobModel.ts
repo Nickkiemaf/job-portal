@@ -31,6 +31,13 @@ export const getSingleJobQuery = `
 UPDATE job_listings
 SET view_count = view_count + 1
 WHERE id = $1
+AND is_deleted = false
 RETURNING *
 `
 
+export const deleteJobQuery = `
+UPDATE job_listings
+SET is_deleted = TRUE
+WHERE id = $1
+RETURNING *
+`

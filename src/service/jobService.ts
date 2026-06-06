@@ -1,5 +1,5 @@
 import { pool } from "../config/db.ts"
-import { allActiveJobsQuery, allJobApplicationsQuery, getSingleJobQuery, updateJobsQuery } from "../model/jobModel.ts"
+import { allActiveJobsQuery, allJobApplicationsQuery, deleteJobQuery, getSingleJobQuery, updateJobsQuery } from "../model/jobModel.ts"
 import { jobListingQuery } from "../model/userModel.ts"
 import type { JobType } from "../types/index.ts"
 
@@ -127,6 +127,30 @@ export class jobService {
     } catch (error) {
       console.log(error)
       throw error
+
+    } finally {
+      client.release()
+    }
+  }
+
+  static deleteJobService = async (job_id: number) => {
+
+    const client = await pool.connect()
+
+    try {
+
+      const deleted = await client.query(deleteJobQuery, [job_id])
+
+      const deletedJob = deleted.rows[0]
+
+      if (!deletedJob) {
+        throw new Error("No job found")
+      }
+
+      return deletedJob
+
+    } catch (error) {
+      console.log(error)
 
     } finally {
       client.release()

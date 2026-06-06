@@ -139,4 +139,29 @@ export class job {
     }
   }
 
+  static deleteJob = async (req: Request, res: Response) => {
+
+    try {
+
+      const { id } = req.params as { id: string }
+
+      const job_id = parseInt(id)
+
+      if (!job_id) {
+        return res.status(400).json({
+          message: "Job id required"
+        })
+      }
+
+      const deletedJobb = await jobService.deleteJobService(job_id)
+
+      return res.status(200).json({
+        message: "Job deleted"
+      })
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 }

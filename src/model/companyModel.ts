@@ -4,6 +4,7 @@ export const companyActiveJobsQuery = `
 SELECT * FROM job_listings
 WHERE status = 'active'
 AND company_id = $1
+AND is_deleted = false
 `
 
 // Update company profile

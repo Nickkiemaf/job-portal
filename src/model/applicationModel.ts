@@ -28,4 +28,9 @@ WHERE job_id = $1
 AND seeker_id = $2
 `
 // Withdraw a pending application
-
+export const withdrawApplicationQuery = `
+DELETE FROM application
+WHERE id = $1
+AND status = 'pending'
+RETURNING *
+`

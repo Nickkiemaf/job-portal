@@ -86,5 +86,29 @@ export class newApplication {
     }
   }
 
+  static withdrawApplication = async (req: Request, res: Response) => {
 
+    try {
+
+      const { id } = req.params as { id: string }
+
+      const application_id = parseInt(id)
+
+      const withdrawn = await applicationService.withdrawApplicationService(application_id)
+
+      return res.status(200).json({
+        message: "Application withdrawn"
+      })
+
+    } catch (error: any) {
+      if (error.message === "Application not found") {
+        return res.status(404).json({
+          message: "Application not found"
+        })
+      }
+      return res.status(500).json({
+        message: "Internal server error"
+      })
+    }
+  }
 }

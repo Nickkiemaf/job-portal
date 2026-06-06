@@ -1,5 +1,5 @@
 import { pool } from "../config/db.ts"
-import { applicationQuery, uniqueJobApplicationQuery, updateJobStatusQuery, viewAllApplicationQuery } from "../model/applicationModel.ts"
+import { applicationQuery, uniqueJobApplicationQuery, updateJobStatusQuery, viewAllApplicationQuery, withdrawApplicationQuery } from "../model/applicationModel.ts"
 import type { ApplicationType } from "../types/index.ts"
 
 export class applicationService {
@@ -79,6 +79,31 @@ export class applicationService {
 
     } catch (error) {
       console.log(error)
+
+    } finally {
+      client.release()
+    }
+  }
+
+  static withdrawApplicationService = async (application_id: number) => {
+
+    const client = await pool.connect()
+
+    try {
+
+      const withdraw = await client.query(withdrawApplicationQuery, [application_id])
+
+      const withdrawnApplication = withdraw.rows[0]
+
+      if (!withdrawnApplication) {
+        throw new Error("Application not found")
+      }
+
+      return withdrawnApplication
+
+    } catch (error) {
+      console.log(error)
+      throw error
 
     } finally {
       client.release()
