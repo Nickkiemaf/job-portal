@@ -32,15 +32,15 @@ export class newApplication {
 
     } catch (error: any) {
 
-      if (error === "Only one application allowed") {
+      if (error.message === "Only one application allowed") {
         return res.status(409).json({
           message: "You have already applied for this job"
         })
+      } else {
+        return res.status(500).json({
+          message: "Internal Server error"
+        })
       }
-
-      return res.status(500).json({
-        message: "Internal Server error"
-      })
     }
 
   }
