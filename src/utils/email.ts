@@ -42,7 +42,53 @@ export class emailService {
 
       transport.sendMail(mailOption)
 
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
+  static async sendnewApplicationNotif(companyEmail: string, job_title: string, name: string) {
+    try {
+
+      const mailOption = {
+        to: companyEmail,
+        from: process.env.MY_EMAIL,
+        html:
+          `<div>
+        <h1> New Application for ${name}</h1>
+        <p>A new job seeker has applied to ${job_title}.</p>
+        <button> View application </button>
+        </div>
+      `
+      }
+
+      transport.sendMail(mailOption)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  static async sendStatusChangeNotif(userEmail: string, title: string, status: string) {
+
+    try {
+
+      const mailOption = {
+        to: userEmail,
+        from: process.env.MY_EMAIL,
+        html:
+          `
+        <html>
+        <h1>Status update for your application</h1>
+        <p>Your application for ${title} is ${status} </p>
+        <button>View application</button>
+        </html>
+        `
+      }
+
+      transport.sendMail(mailOption
+
+      )
     } catch (error) {
       console.log(error)
     }
@@ -50,4 +96,4 @@ export class emailService {
 
 }
 
-emailService.sendCompanyWelcome("mikailajibolawrites@gmail.com", "Ferricool Studio")
+//emailService.sendCompanyWelcome("mikailajibolawrites@gmail.com", "Ferricool Studio")

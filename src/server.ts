@@ -5,6 +5,7 @@ import { runMigration } from "../scripts/migration.ts"
 import { emailService } from "./utils/email.ts"
 import { logger } from "./utils/logger.ts"
 import authRoute from "./route/jobPortal.ts"
+import statRouthe from "./route/stats.ts"
 
 
 dotenv.config()
@@ -16,6 +17,7 @@ const app: Application = express()
 app.use(express.json())
 
 app.use(authRoute)
+app.use(statRouthe)
 
 app.listen(3000, () => {
   console.log(`Server is running on 8080`)

@@ -75,6 +75,9 @@ export class applicationService {
 
       const updateJobStatus = update.rows[0]
 
+      console.log(updateJobStatus)
+
+
       return updateJobStatus
 
     } catch (error) {
@@ -84,6 +87,8 @@ export class applicationService {
       client.release()
     }
   }
+
+  // Withdraw a pending application
 
   static withdrawApplicationService = async (application_id: number) => {
 
@@ -110,7 +115,3 @@ export class applicationService {
     }
   }
 }
-
-
-
-// Withdraw a pending application

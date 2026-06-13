@@ -15,10 +15,13 @@ WHERE seeker_id = $1
 
 // Update application status(employer action)
 export const updateJobStatusQuery = `
-UPDATE application
-SET status = $1
-WHERE job_id = $2
-RETURNING *
+UPDATE application a
+SET status = $1, 
+updated_at = CURRENT_TIMESTAMP
+FROM users u
+WHERE a.job_id = $2
+AND a.seeker_id = u.id
+RETURNING a.*, u.email, u.first_name
 `
 
 //view all application by job_id and seeker_id

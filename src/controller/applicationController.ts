@@ -1,5 +1,6 @@
 import type { Request, Response } from "express"
 import { applicationService } from "../service/applicationService.ts"
+import { emailService } from "../utils/email.ts"
 
 export class newApplication {
 
@@ -76,11 +77,21 @@ export class newApplication {
         })
       }
 
-      const updateApplication = await applicationService.updateApplicationByStatusService(status, job_id)
+      const updateApplication = await applicationService.updateApplicationByStatusService(status, job_id,)
+
+      if (!updateApplication) {
+        return res.json({ message: "Application not found" })
+      }
+
+      await emailService.sendStatusChangeNotif(
+        updateApplication.email,
+        updateApplication.status,
+        updateApplication.first_name)
 
       return res.status(200).json({
         data: updateApplication
       })
+
     } catch (error) {
       console.log(error || "Internal Server Error")
     }
