@@ -21,7 +21,7 @@ WHERE job_id = $1
 //'pending', 'reviewed', 'interview', 'rejected', 'hired'
 
 export const statusPerListingQuery = `
-SELECT COUNT (*)
+SELECT status, COUNT (*)
 FROM application
 WHERE job_id = $1
 GROUP BY status

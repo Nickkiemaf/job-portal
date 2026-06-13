@@ -84,6 +84,11 @@ ALTER COLUMN status TYPE application_status
 USING status::application_status
 `
 
+export const alterTableDefaultStatus = `
+ALTER TABLE application
+ALTER COLUMN status SET DEFAULT 'pending'
+`
+
 export const createTables = async () => {
 
   const client = await pool.connect()
@@ -116,6 +121,8 @@ export const createTables = async () => {
     await client.query(alterTableTwo)
     console.log("Application table altered")
 
+    await client.query(alterTableDefaultStatus)
+    console.log("Default status set to pending")
 
 
   } catch (error) {
