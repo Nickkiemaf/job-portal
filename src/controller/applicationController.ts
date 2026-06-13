@@ -20,6 +20,12 @@ export class newApplication {
         job_id, seeker_id, cover_letter, resume_url
       })
 
+      await emailService.sendnewApplicationNotif(
+        newUserApplication.company_email,
+        newUserApplication.job_title,
+        newUserApplication.company_first_name
+      )
+
       return res.status(201).json({
         data: newUserApplication
       })

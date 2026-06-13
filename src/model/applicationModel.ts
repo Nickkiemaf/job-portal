@@ -2,9 +2,20 @@ import { pool } from "../config/db.ts"
 
 // Submit an application to a job listing
 export const applicationQuery = `
-INSERT INTO application(job_id, seeker_id, cover_letter, resume_url)
-VALUES($1, $2, $3, $4)
-RETURNING *
+WITH new_application AS (
+  INSERT INTO application(job_id, seeker_id, cover_letter, resume_url)
+  VALUES($1, $2, $3, $4)
+  RETURNING *
+)
+SELECT
+  na.*,
+  jl.title AS job_title,
+  u.email AS company_email,
+  u.first_name AS company_first_name
+FROM new_application na
+JOIN job_listings jl ON na.job_id = jl.id
+JOIN company c ON jl.company_id = c.id
+JOIN users u ON c.user_id = u.id
 `
 
 // View all applications by the logged -in seeker
