@@ -2,7 +2,7 @@ import { pool } from "../config/db.ts"
 
 export const allActiveJobsQuery = `
 SELECT * FROM job_listings
-WHERE status = active
+WHERE status = 'active'
 AND is_deleted = false
 `
 

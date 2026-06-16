@@ -14,6 +14,8 @@ export const generateToken = (user_id: TokenGeneratorType, role: TokenGeneratorT
 
     const token = jwt.sign(payload, secret, { expiresIn: "24h" })
 
+    return token
+
   } catch (error) {
     console.log("Invalid token")
   }

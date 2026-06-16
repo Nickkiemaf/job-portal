@@ -44,7 +44,7 @@ export class jobService {
 
       const activeJobss = await client.query(allActiveJobsQuery)
 
-      const aallActiveJobss = activeJobss.rows[0]
+      const aallActiveJobss = activeJobss.rows
 
       return aallActiveJobss
 
