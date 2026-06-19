@@ -5,6 +5,8 @@ import { authService } from "../service/authService.ts"
 export class auth {
 
   static userSignup = async (req: Request, res: Response) => {
+    console.log(req.file)
+    console.log(req.file?.path)
 
     try {
 
@@ -13,6 +15,8 @@ export class auth {
       } = req.body
 
       //validation
+
+      console.log(req.file)
 
       if (!first_name || !last_name || !email || !password || !role) {
         return res.status(200).json({
@@ -79,6 +83,37 @@ export class auth {
       console.log(error)
     }
 
+  }
+
+  static UserPasswordReset = async (req: Request, res: Response) => {
+
+    try {
+
+      const { email, password_hash, new_password } = req.body
+
+      if (!email || !password_hash || !new_password) {
+        return res.status(400).json({
+          message: "All fields required"
+        })
+      }
+
+      const userReset = await authService.passwordReset(email, password_hash, new_password)
+
+      return res.status(200).json({
+        message: "Password reset successful",
+        data: userReset
+      })
+
+    } catch (error: any) {
+
+      if (error.message === "Incorrect old password") {
+        return res.status(400).json({
+          message: "Incorrect old password"
+        })
+      } else {
+        console.log(error)
+      }
+    }
   }
 
 

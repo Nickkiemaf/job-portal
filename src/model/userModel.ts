@@ -31,3 +31,16 @@ export const emailExist = `
 SELECT * FROM users
 WHERE email = $1
 `
+
+export const comparePasswordQuery = `
+SELECT password_hash
+FROM users
+WHERE email = $1
+`
+
+export const passwordResetQuery = `
+UPDATE users
+SET password_hash = COALESCE($1, password_hash)
+WHERE email = $2
+RETURNING *
+`

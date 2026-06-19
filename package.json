@@ -30,6 +30,7 @@
     "winston": "^3.19.0"
   },
   "devDependencies": {
+    "@types/multer": "^2.1.0",
     "typescript": "^6.0.3"
   }
 }

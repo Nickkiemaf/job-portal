@@ -24,6 +24,6 @@ app.listen(3000, () => {
 
   testDatabase()
   //runMigration()
-  emailService.sendCompanyWelcome("mikailajibolawrites@gmail.com", "Ferricool Studio")
+  //emailService.sendCompanyWelcome("mikailajibolawrites@gmail.com", "Ferricool Studio")
   logger.info("Server runnung.")
 })

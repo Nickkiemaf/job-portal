@@ -5,11 +5,12 @@ import { newApplication } from "../controller/applicationController.ts";
 import { company } from "../controller/companyController.ts";
 import { authenticate } from "../middleware/authenticate.ts";
 import { permissions } from "../middleware/verifyRole.ts";
+import { upload } from "../middleware/uploadFile.ts";
 
 
 const router = Router()
 
-router.post("/signup", auth.userSignup)
+router.post("/signup", upload.single("file"), auth.userSignup)
 router.post("/login", auth.userLogin)
 router.post("/jobs", authenticate, permissions(["Job_seeker"]), job.createJob) //create job - employer only
 router.get("/jobs", authenticate, permissions(["Job_seeker"]), job.allActiveJobs) //all active jobs
@@ -17,6 +18,7 @@ router.get("/jobs/:id", authenticate, permissions(["Company", "Job_seeker"]), jo
 router.patch("/jobs/:id", authenticate, permissions(["Company"]), job.updateJobs)
 router.delete("/jobs/:id", authenticate, permissions(["Company"]), job.deleteJob)
 router.get("/jobs/:id/application", job.allJobApplications)//company application
+router.patch("/resetpassword", auth.UserPasswordReset)//company application
 
 //application routes
 router.post("/jobs/:id/apply", authenticate, permissions(["Job_seeker"]), newApplication.userApplication)

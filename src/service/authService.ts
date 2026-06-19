@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs"
 import { pool } from "../config/db.ts"
-import { companyQuery, emailExist, jobSeekerQuery, usersQuery } from "../model/userModel.ts"
+import { companyQuery, comparePasswordQuery, emailExist, jobSeekerQuery, passwordResetQuery, usersQuery } from "../model/userModel.ts"
 import type { SignupUser, User } from "../types/index.ts"
 import { generateToken } from "../utils/token.ts"
 
@@ -144,6 +144,46 @@ export class authService {
 
 
     } catch (error) {
+      console.log(error)
+
+    } finally {
+      client.release()
+    }
+  }
+
+  static passwordReset = async (email: string, password_hash: string, new_password: string) => {
+
+    const client = await pool.connect()
+
+    try {
+
+      //grab user password
+      const password = await client.query(comparePasswordQuery, [email])
+
+      const comparePassword = password.rows[0]
+      //compare query output with user input
+      const passowrdMatch = await bcrypt.compare(password_hash, comparePassword.password_hash)
+
+      //check if password match
+      if (!passowrdMatch) {
+        throw new Error("Incorrect old password")
+      }
+
+      //hash new password
+      const hashed = await bcrypt.hash(new_password, 10)
+
+      //insert
+      const newPassword = await client.query(passwordResetQuery, [
+        hashed,
+        email
+      ])
+
+      const passwordResetSuccessful = newPassword.rows[0]
+
+      return passwordResetSuccessful
+
+    } catch (error) {
+      throw error
       console.log(error)
 
     } finally {
