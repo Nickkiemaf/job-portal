@@ -1,5 +1,5 @@
 import { pool } from "../config/db.ts"
-import { allActiveJobsQuery, allJobApplicationsQuery, deleteJobQuery, getSingleJobQuery, updateJobsQuery } from "../model/jobModel.ts"
+import { allActiveJobsQuery, allJobApplicationsQuery, deleteJobQuery, getSingleJobQuery, jobSearchQuery, updateJobsQuery } from "../model/jobModel.ts"
 import { jobListingQuery } from "../model/userModel.ts"
 import type { JobType } from "../types/index.ts"
 
@@ -123,6 +123,33 @@ export class jobService {
       const getSingleJobss = getSingleJob.rows[0]
 
       return getSingleJobss
+
+    } catch (error) {
+      console.log(error)
+      throw error
+
+    } finally {
+      client.release()
+    }
+  }
+
+  static jobSearchService = async (title: any, description: any) => {
+    const client = await pool.connect()
+
+    try {
+
+      const jobsearch = await client.query(jobSearchQuery, [
+        '% { title } %',
+        '% { description } %'
+      ])
+
+      if (jobsearch.rows.length == 0) {
+        throw new Error("No job found")
+      }
+
+      const searched = jobsearch.rows
+
+      return searched
 
     } catch (error) {
       console.log(error)

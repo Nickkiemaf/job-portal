@@ -6,6 +6,13 @@ WHERE status = 'active'
 AND is_deleted = false
 `
 
+export const jobSearchQuery = `
+SELECT *
+FROM job_listings
+WHERE (title LIKE $1 OR description LIKE $2)
+AND is_deleted = false
+`
+
 export const updateJobsQuery = `
 UPDATE job_listings
 SET title = COALESCE ($1, title),

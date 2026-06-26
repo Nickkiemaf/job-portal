@@ -139,6 +139,33 @@ export class job {
     }
   }
 
+  static jobSearch = async (req: Request, res: Response) => {
+
+    try {
+      const { title, description } = req.body
+
+      if (!title) {
+        return res.status(400).json({
+          message: "Enter job title"
+        })
+      }
+
+      const search = await jobService.jobSearchService(title, description)
+
+      return res.status(200).json({
+        data: search
+      })
+
+    } catch (error: any) {
+      if (error.message == "No job found") {
+        return res.status(401).json({
+          message: "No job found"
+        })
+      }
+      console.log(error)
+    }
+  }
+
   static deleteJob = async (req: Request, res: Response) => {
 
     try {
