@@ -1,4 +1,4 @@
-Job Portal API
+JOB PORTAL API
 
 FEATURES:
 Register users
@@ -32,23 +32,7 @@ TypeScript
 PostgreSQL
 
 
-
-3. Getting Started
-
-bashgit clone https://github.com/your-username/cirvee.git
-cd cirvee
-npm install
-
-Create a .env file:
-
-envPORT=
-DATABASE_URL=
-JWT_SECRET=
-
-bashnpm run dev
-
-
-4. Routes
+3. Routes
 
 Auth
 
